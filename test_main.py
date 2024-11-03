@@ -2,11 +2,12 @@ import pytest
 import yaml
 import os
 
-from main import Solution
-from config_logging import configure_logging
-from tests_load import load_test_cases
+from .config_logging import configure_logging
+from .test.tests_load import load_test_cases
 
-def load_config(config_filename="config_test.yaml"):
+from .main import Solution
+
+def load_config(config_filename="test/config_test.yaml"):
     with open(config_filename, "r") as f:
         return yaml.safe_load(f)
 
