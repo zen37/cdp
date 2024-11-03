@@ -1,4 +1,4 @@
-test_cases_file: test_cases.json
+test_cases_file: test_cases.csv #test_cases.yaml
 
 log:
   failure: 

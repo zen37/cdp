@@ -1,6 +1,7 @@
 import pytest
 import yaml
 import json
+import csv
 import logging
 import os
 
@@ -11,11 +12,39 @@ def load_config(config_filename="test_config.yaml"):
     with open(config_filename, "r") as f:
         return yaml.safe_load(f)
 
-# Load test cases from the file specified in the configuration
-def load_test_cases(test_cases_file):
+import csv
+import json
+import ast
+
+def load_test_cases_from_json(test_cases_file):
+    """Load test cases from a JSON file."""
     with open(test_cases_file, "r") as f:
         return json.load(f)
 
+def load_test_cases_from_csv(test_cases_file):
+    """Load test cases from a CSV file."""
+    with open(test_cases_file, "r") as f:
+        reader = csv.DictReader(f)
+        test_cases = []
+        for row in reader:
+            # Convert string representations of lists into actual lists
+            row['nums'] = ast.literal_eval(row['nums'])  # Convert "[1, 1, 2]" to [1, 1, 2]
+            row['expected_nums'] = ast.literal_eval(row['expected_nums'])  # Convert "[1, 2, '_']" to [1, 2, '_']
+            row['expected_k'] = int(row['expected_k'])  # Ensure expected_k is an integer
+            test_cases.append(row)
+        return test_cases
+
+def load_test_cases(test_cases_file):
+    """Load test cases based on file type."""
+    if test_cases_file.endswith('.json'):
+        return load_test_cases_from_json(test_cases_file)
+    elif test_cases_file.endswith('.csv'):
+        return load_test_cases_from_csv(test_cases_file)
+    else:
+        raise ValueError("Unsupported file type. Please use a .json or .csv file.")
+
+
+    
 # Check if the log files exist, and create them with headers if they don't
 def initialize_log_file(log_file_path, header):
     log_dir = os.path.dirname(log_file_path)
