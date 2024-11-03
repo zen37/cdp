@@ -26,9 +26,6 @@ nums = [1, 1, 2]
 2, nums = [1, 2, _]
 ```
 
-**Explanation:**  
-The function should return `k = 2`, with the first two elements of `nums` being `1` and `2`. It does not matter what values are beyond the returned `k` (shown here as underscores).
-
 ---
 
 #### Example 2
@@ -45,3 +42,6 @@ nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
 
 **Explanation:**  
 The function should return `k = 5`, with the first five elements of `nums` being `0`, `1`, `2`, `3`, and `4`. The elements beyond `k` do not matter.
+
+# To Do
+Refactor the test logging system to support flexible storage options, allowing test results to be saved not only to files but also to other storage solutions as needed.
